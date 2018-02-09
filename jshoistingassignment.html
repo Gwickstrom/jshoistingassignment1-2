@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>js hoisting assignment</title>
+    </head>
+    <body>
+        <script>
+
+
+            // Predict the output of the following snippets. Do not plug these into the interpreter.
+
+            // Even if let and const prevent a lot of the confusing behavior of JavaScript's hoisting, these are ES6 constructs and a huge amount of the world's live JavaScript code is still ES5. Understanding how ES5 hoists var and the rules of scoping are important for every JavaScript developer!
+
+           //Key rules of Hoisting:
+               // -Variable declartions rise to the top of their scope like hot air balloons.
+               // -Functions create their own scope and act like cages, preventing declarations from rising out.
+               // -Assignments, or = signs, act like anchors. They stay put, no matter how the code is rearranged.
+               // -let and const will throw an error if called before they get assigned.
+
+            // Key Takeaways
+            // • Each function has access to all the variables in its parent function.
+            //
+            // • No function has access to the variables in its child functions.
+            //
+            // • Your entire .js file can be thought of as the outermost function or 'global' scope.
+
+            //Example 1
+            console.log(hello);
+            var hello = "world";
+            // returns undefined because world is declared after the console tries to log the info of hello to the console.
+            console.log("\n")
+            console.log("\n")
+
+            //Example 2
+            var needle = 'haystack';
+            test();
+            function test(){
+                var needle = 'magnet';
+                console.log(needle);
+            }
+            console.log(needle);
+            console.log("\n")
+            console.log("\n")
+            // needle becomes haystack through the top line, then the running of the test() function assigns it the new value of magnet. Then outputting magnet to the console.
+            // 2nd test case was to make a new console.log(needle) outside the scope of the function test(), the value of needle is therefore still haystack because it is, in this case, a global variable.
+
+
+            //Example 3
+            var brendan = 'super cool';
+            function print(){
+                brendan = 'only okay'
+                console.log(brendan);
+            }
+            console.log(brendan );
+            print();
+            console.log(brendan );
+            //Originally, the print function is never called so it never gets reassigned to 'only okay', so when the first brndan gets console logged when print() is called, it is reassigned the value of 'only okay', if you put another console.log(brendan) before the print function, it still has the value of 'super cool';
+            console.log("\n")
+            console.log("\n")
+
+            // Example 4
+            var food = 'chicken';
+            console.log(food);
+            eat();
+            function eat(){
+                food = 'half-chicken';
+                console.log(food);
+                var food = 'gone';
+                //Added this console.log to show that food gets reassigned to gone.
+                console.log(food);
+            };
+            console.log(food);
+            console.log("\n")
+            console.log("\n")
+
+            //The variable food getting console logged is straight forward and there are no hoisting complications. The function eat is called before its created , but at a base level, JavaScript has function scoping. This means that when we declare variables inside of a function, they are only accessible to that function. That's why the 4th console log, at the very end does not give the response of 'gone'.
+
+
+
+            // Example 5
+            // mean();
+            console.log(food);
+            // function mean(){
+            //     food = "chicken";
+            //     console.log(food);
+            //     var food = 'fish';
+            //     console.log(food);
+            // }
+            var mean = function() {
+                food = "chicken";
+                console.log(food);
+                var food = 'fish';
+                console.log(food);
+            }
+            mean();
+            console.log(mean);
+            console.log(food);
+            console.log("\n")
+            console.log("\n")
+            // Mean is not technically a function it is a variable that gets assigned a function, and therefore is not recognized when it is originally called at the very top of the code. The food = 'chicken' from within the function assignment is hoisted to the top wheere it is logged as chicken. The mean function is then called with mean(); and so chicken and then fish is logged to the terminal. I log the mean function to verify that the function is stored as a variable. The last console.log(food) reports chicken, meaning that it takes the food assignment from within the function as well, while leaving behind it's new declaration as fish. This is because Functions create their own scope and act like cages, preventing declarations from rising out.
+
+
+
+
+            // Example 6
+            console.log(genre);
+            var genre = "disco";
+            rewind();
+            function rewind(){
+                genre = "rock";
+                console.log(genre);
+                var genre = "r&b";
+                console.log(genre);
+            }
+            console.log(genre);
+            console.log("\n")
+            console.log("\n")
+            //The first console.log of genre turns up as undefined because it is called before given a value. When the function rewind() is called it logs the two different genres that these release too. The 2nd response; rock, is logged to the console. Tje gemre r&b then gets hoisted, and lastly genre is ack to disco from the global variable.
+
+
+
+            // Example 7
+            dojo = "san jose";
+            console.log(dojo);
+            learn();
+            function learn() {
+                dojo = "seattle";
+                console.log(dojo);
+                var dojo = "burbank";
+                console.log(dojo);
+            }
+            console.log(dojo);
+            // Everthing is hoisted in the most logical way.
+        </script>
+    </body>
+</html>
